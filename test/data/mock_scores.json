@@ -1,0 +1,679 @@
+{
+    "challengers": [
+        {
+            "displayName": "Aaron",
+            "brackets": [
+                {
+                    "gender": "mens",
+                    "rounds": [
+                        {
+                            "round": "1",
+                            "score": 200,
+                            "possiblePointsMax": 230
+                        },
+                        {
+                            "round": "2",
+                            "score": 200,
+                            "possiblePointsMax": 200
+                        },
+                        {
+                            "round": "3",
+                            "score": 80,
+                            "possiblePointsMax": 80
+                        },
+                        {
+                            "round": "4",
+                            "score": 0,
+                            "possiblePointsMax": 160
+                        },
+                        {
+                            "round": "5",
+                            "score": 0,
+                            "possiblePointsMax": 320
+                        },
+                        {
+                            "round": "6",
+                            "score": 0,
+                            "possiblePointsMax": 320
+                        }
+                    ]
+                },
+                {
+                    "gender": "womens",
+                    "rounds": [
+                        {
+                            "round": "1",
+                            "score": 240,
+                            "possiblePointsMax": 240
+                        },
+                        {
+                            "round": "2",
+                            "score": 240,
+                            "possiblePointsMax": 240
+                        },
+                        {
+                            "round": "3",
+                            "score": 240,
+                            "possiblePointsMax": 240
+                        },
+                        {
+                            "round": "4",
+                            "score": 240,
+                            "possiblePointsMax": 240
+                        },
+                        {
+                            "round": "5",
+                            "score": 160,
+                            "possiblePointsMax": 160
+                        },
+                        {
+                            "round": "6",
+                            "score": 0,
+                            "possiblePointsMax": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "displayName": "Pete",
+            "brackets": [
+                {
+                    "gender": "mens",
+                    "rounds": [
+                        {
+                            "round": "1",
+                            "score": 200,
+                            "possiblePointsMax": 200
+                        },
+                        {
+                            "round": "2",
+                            "score": 240,
+                            "possiblePointsMax": 240
+                        },
+                        {
+                            "round": "3",
+                            "score": 160,
+                            "possiblePointsMax": 160
+                        },
+                        {
+                            "round": "4",
+                            "score": 80,
+                            "possiblePointsMax": 80
+                        },
+                        {
+                            "round": "5",
+                            "score": 160,
+                            "possiblePointsMax": 160
+                        },
+                        {
+                            "round": "6",
+                            "score": 320,
+                            "possiblePointsMax": 320
+                        }
+                    ]
+                },
+                {
+                    "gender": "womens",
+                    "rounds": [
+                        {
+                            "round": "1",
+                            "score": 260,
+                            "possiblePointsMax": 260
+                        },
+                        {
+                            "round": "2",
+                            "score": 240,
+                            "possiblePointsMax": 240
+                        },
+                        {
+                            "round": "3",
+                            "score": 160,
+                            "possiblePointsMax": 160
+                        },
+                        {
+                            "round": "4",
+                            "score": 160,
+                            "possiblePointsMax": 160
+                        },
+                        {
+                            "round": "5",
+                            "score": 160,
+                            "possiblePointsMax": 160
+                        },
+                        {
+                            "round": "6",
+                            "score": 320,
+                            "possiblePointsMax": 320
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "displayName": "Matthew",
+            "brackets": [
+                {
+                    "gender": "mens",
+                    "rounds": [
+                        {
+                            "round": "1",
+                            "score": 230,
+                            "possiblePointsMax": 230
+                        },
+                        {
+                            "round": "2",
+                            "score": 220,
+                            "possiblePointsMax": 220
+                        },
+                        {
+                            "round": "3",
+                            "score": 80,
+                            "possiblePointsMax": 80
+                        },
+                        {
+                            "round": "4",
+                            "score": 80,
+                            "possiblePointsMax": 80
+                        },
+                        {
+                            "round": "5",
+                            "score": 160,
+                            "possiblePointsMax": 160
+                        },
+                        {
+                            "round": "6",
+                            "score": 320,
+                            "possiblePointsMax": 320
+                        }
+                    ]
+                },
+                {
+                    "gender": "womens",
+                    "rounds": [
+                        {
+                            "round": "1",
+                            "score": 230,
+                            "possiblePointsMax": 230
+                        },
+                        {
+                            "round": "2",
+                            "score": 220,
+                            "possiblePointsMax": 220
+                        },
+                        {
+                            "round": "3",
+                            "score": 160,
+                            "possiblePointsMax": 160
+                        },
+                        {
+                            "round": "4",
+                            "score": 0,
+                            "possiblePointsMax": 0
+                        },
+                        {
+                            "round": "5",
+                            "score": 0,
+                            "possiblePointsMax": 0
+                        },
+                        {
+                            "round": "6",
+                            "score": 0,
+                            "possiblePointsMax": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "displayName": "Emma V.",
+            "brackets": [
+                {
+                    "gender": "mens",
+                    "rounds": [
+                        {
+                            "round": "1",
+                            "score": 220,
+                            "possiblePointsMax": 220
+                        },
+                        {
+                            "round": "2",
+                            "score": 260,
+                            "possiblePointsMax": 260
+                        },
+                        {
+                            "round": "3",
+                            "score": 40,
+                            "possiblePointsMax": 40
+                        },
+                        {
+                            "round": "4",
+                            "score": 80,
+                            "possiblePointsMax": 80
+                        },
+                        {
+                            "round": "5",
+                            "score": 160,
+                            "possiblePointsMax": 160
+                        },
+                        {
+                            "round": "6",
+                            "score": 320,
+                            "possiblePointsMax": 320
+                        }
+                    ]
+                },
+                {
+                    "gender": "womens",
+                    "rounds": [
+                        {
+                            "round": "1",
+                            "score": 280,
+                            "possiblePointsMax": 280
+                        },
+                        {
+                            "round": "2",
+                            "score": 280,
+                            "possiblePointsMax": 280
+                        },
+                        {
+                            "round": "3",
+                            "score": 200,
+                            "possiblePointsMax": 200
+                        },
+                        {
+                            "round": "4",
+                            "score": 160,
+                            "possiblePointsMax": 160
+                        },
+                        {
+                            "round": "5",
+                            "score": 0,
+                            "possiblePointsMax": 0
+                        },
+                        {
+                            "round": "6",
+                            "score": 0,
+                            "possiblePointsMax": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "displayName": "Katy",
+            "brackets": [
+                {
+                    "gender": "mens",
+                    "rounds": [
+                        {
+                            "round": "1",
+                            "score": 240,
+                            "possiblePointsMax": 240
+                        },
+                        {
+                            "round": "2",
+                            "score": 280,
+                            "possiblePointsMax": 280
+                        },
+                        {
+                            "round": "3",
+                            "score": 160,
+                            "possiblePointsMax": 160
+                        },
+                        {
+                            "round": "4",
+                            "score": 0,
+                            "possiblePointsMax": 0
+                        },
+                        {
+                            "round": "5",
+                            "score": 0,
+                            "possiblePointsMax": 0
+                        },
+                        {
+                            "round": "6",
+                            "score": 0,
+                            "possiblePointsMax": 0
+                        }
+                    ]
+                },
+                {
+                    "gender": "womens",
+                    "rounds": [
+                        {
+                            "round": "1",
+                            "score": 260,
+                            "possiblePointsMax": 260
+                        },
+                        {
+                            "round": "2",
+                            "score": 240,
+                            "possiblePointsMax": 240
+                        },
+                        {
+                            "round": "3",
+                            "score": 200,
+                            "possiblePointsMax": 200
+                        },
+                        {
+                            "round": "4",
+                            "score": 80,
+                            "possiblePointsMax": 80
+                        },
+                        {
+                            "round": "5",
+                            "score": 160,
+                            "possiblePointsMax": 160
+                        },
+                        {
+                            "round": "6",
+                            "score": 0,
+                            "possiblePointsMax": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "displayName": "Luke",
+            "brackets": [
+                {
+                    "gender": "mens",
+                    "rounds": [
+                        {
+                            "round": "1",
+                            "score": 180,
+                            "possiblePointsMax": 180
+                        },
+                        {
+                            "round": "2",
+                            "score": 220,
+                            "possiblePointsMax": 220
+                        },
+                        {
+                            "round": "3",
+                            "score": 120,
+                            "possiblePointsMax": 120
+                        },
+                        {
+                            "round": "4",
+                            "score": 0,
+                            "possiblePointsMax": 0
+                        },
+                        {
+                            "round": "5",
+                            "score": 0,
+                            "possiblePointsMax": 0
+                        },
+                        {
+                            "round": "6",
+                            "score": 0,
+                            "possiblePointsMax": 0
+                        }
+                    ]
+                },
+                {
+                    "gender": "womens",
+                    "rounds": [
+                        {
+                            "round": "1",
+                            "score": 300,
+                            "possiblePointsMax": 300
+                        },
+                        {
+                            "round": "2",
+                            "score": 260,
+                            "possiblePointsMax": 260
+                        },
+                        {
+                            "round": "3",
+                            "score": 200,
+                            "possiblePointsMax": 200
+                        },
+                        {
+                            "round": "4",
+                            "score": 240,
+                            "possiblePointsMax": 240
+                        },
+                        {
+                            "round": "5",
+                            "score": 320,
+                            "possiblePointsMax": 320
+                        },
+                        {
+                            "round": "6",
+                            "score": 320,
+                            "possiblePointsMax": 320
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "displayName": "Hannah",
+            "brackets": [
+                {
+                    "gender": "mens",
+                    "rounds": [
+                        {
+                            "round": "1",
+                            "score": 250,
+                            "possiblePointsMax": 250
+                        },
+                        {
+                            "round": "2",
+                            "score": 200,
+                            "possiblePointsMax": 200
+                        },
+                        {
+                            "round": "3",
+                            "score": 40,
+                            "possiblePointsMax": 40
+                        },
+                        {
+                            "round": "4",
+                            "score": 0,
+                            "possiblePointsMax": 0
+                        },
+                        {
+                            "round": "5",
+                            "score": 0,
+                            "possiblePointsMax": 0
+                        },
+                        {
+                            "round": "6",
+                            "score": 0,
+                            "possiblePointsMax": 0
+                        }
+                    ]
+                },
+                {
+                    "gender": "womens",
+                    "rounds": [
+                        {
+                            "round": "1",
+                            "score": 200,
+                            "possiblePointsMax": 200
+                        },
+                        {
+                            "round": "2",
+                            "score": 160,
+                            "possiblePointsMax": 160
+                        },
+                        {
+                            "round": "3",
+                            "score": 80,
+                            "possiblePointsMax": 80
+                        },
+                        {
+                            "round": "4",
+                            "score": 80,
+                            "possiblePointsMax": 80
+                        },
+                        {
+                            "round": "5",
+                            "score": 0,
+                            "possiblePointsMax": 0
+                        },
+                        {
+                            "round": "6",
+                            "score": 0,
+                            "possiblePointsMax": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "displayName": "Emma S.",
+            "brackets": [
+                {
+                    "gender": "mens",
+                    "rounds": [
+                        {
+                            "round": "1",
+                            "score": 210,
+                            "possiblePointsMax": 210
+                        },
+                        {
+                            "round": "2",
+                            "score": 220,
+                            "possiblePointsMax": 220
+                        },
+                        {
+                            "round": "3",
+                            "score": 40,
+                            "possiblePointsMax": 40
+                        },
+                        {
+                            "round": "4",
+                            "score": 0,
+                            "possiblePointsMax": 0
+                        },
+                        {
+                            "round": "5",
+                            "score": 0,
+                            "possiblePointsMax": 0
+                        },
+                        {
+                            "round": "6",
+                            "score": 0,
+                            "possiblePointsMax": 0
+                        }
+                    ]
+                },
+                {
+                    "gender": "womens",
+                    "rounds": [
+                        {
+                            "round": "1",
+                            "score": 210,
+                            "possiblePointsMax": 210
+                        },
+                        {
+                            "round": "2",
+                            "score": 220,
+                            "possiblePointsMax": 220
+                        },
+                        {
+                            "round": "3",
+                            "score": 200,
+                            "possiblePointsMax": 200
+                        },
+                        {
+                            "round": "4",
+                            "score": 160,
+                            "possiblePointsMax": 160
+                        },
+                        {
+                            "round": "5",
+                            "score": 160,
+                            "possiblePointsMax": 160
+                        },
+                        {
+                            "round": "6",
+                            "score": 320,
+                            "possiblePointsMax": 320
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "displayName": "Debbie",
+            "brackets": [
+                {
+                    "gender": "mens",
+                    "rounds": [
+                        {
+                            "round": "1",
+                            "score": 220,
+                            "possiblePointsMax": 220
+                        },
+                        {
+                            "round": "2",
+                            "score": 140,
+                            "possiblePointsMax": 140
+                        },
+                        {
+                            "round": "3",
+                            "score": 40,
+                            "possiblePointsMax": 40
+                        },
+                        {
+                            "round": "4",
+                            "score": 0,
+                            "possiblePointsMax": 0
+                        },
+                        {
+                            "round": "5",
+                            "score": 0,
+                            "possiblePointsMax": 0
+                        },
+                        {
+                            "round": "6",
+                            "score": 0,
+                            "possiblePointsMax": 0
+                        }
+                    ]
+                },
+                {
+                    "gender": "womens",
+                    "rounds": [
+                        {
+                            "round": "1",
+                            "score": 270,
+                            "possiblePointsMax": 270
+                        },
+                        {
+                            "round": "2",
+                            "score": 240,
+                            "possiblePointsMax": 240
+                        },
+                        {
+                            "round": "3",
+                            "score": 120,
+                            "possiblePointsMax": 120
+                        },
+                        {
+                            "round": "4",
+                            "score": 80,
+                            "possiblePointsMax": 80
+                        },
+                        {
+                            "round": "5",
+                            "score": 160,
+                            "possiblePointsMax": 160
+                        },
+                        {
+                            "round": "6",
+                            "score": 0,
+                            "possiblePointsMax": 0
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
