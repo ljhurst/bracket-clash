@@ -2,6 +2,19 @@
 import { fetchData } from './fetch-data.js';
 
 (function () {
+    const DATASET_COLORS = {
+        score: {
+            background: 'rgb(34, 139, 34, 0.2)',
+            border: 'rgb(34, 139, 34, 1.0)',
+        },
+        remainingScore: {
+            background: 'rgb(144, 238, 144, 0.2)',
+            border: 'rgb(144, 238, 144, 1.0)',
+        },
+    };
+
+    Chart.defaults.color = 'white';
+
     let CHART = null;
 
     main();
@@ -112,15 +125,15 @@ import { fetchData } from './fetch-data.js';
             {
                 label: 'Score',
                 data: sortedData.map((challenger) => challenger.scores.score),
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: DATASET_COLORS.score.background,
+                borderColor: DATASET_COLORS.score.border,
                 borderWidth: 1,
             },
             {
                 label: 'Remaining Score',
                 data: sortedData.map((challenger) => challenger.scores.remainingScore),
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: DATASET_COLORS.remainingScore.background,
+                borderColor: DATASET_COLORS.remainingScore.border,
                 borderWidth: 1,
             },
         ];
