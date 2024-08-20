@@ -17,6 +17,7 @@ Find the `lj-bracket-clash` bucket
 
 ## Upload files
 
+- `assets/`
 - `index.html`
 - `script.js`
 - `fetch-data.js`
