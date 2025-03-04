@@ -12,19 +12,21 @@ const ESPN_ID_MAP = {
 
 const GROUPS = {
     mens: {
-        prefix: 'tournament-challenge-bracket-2024',
+        prefix: 'tournament-challenge-bracket',
         group_id: '5a64cc67-7fc4-3fb2-9c9c-6c0d92a85b8c',
     },
     womens: {
-        prefix: 'tournament-challenge-bracket-women-2024',
+        prefix: 'tournament-challenge-bracket-women',
         group_id: 'c1e10bcb-3f29-4203-a899-981ad9bd3b46',
     },
 };
 
-export async function fetchData() {
+export async function fetchData(year) {
+    console.log('Fetching data for year', year);
+
     const scores = [];
     await Promise.all(Object.entries(GROUPS).map(async ([gender, details]) => {
-        const responseJson = await getGroupScores(details.prefix, details.group_id);
+        const responseJson = await getGroupScores(details.prefix, year, details.group_id);
 
         scores.push(parseScores(responseJson, gender));
     }));
@@ -34,8 +36,8 @@ export async function fetchData() {
     return combinedScores;
 }
 
-async function getGroupScores(prefix, group_id) {
-    const url = `https://gambit-api.fantasy.espn.com/apis/v1/challenges/${prefix}/groups/${group_id}`;
+async function getGroupScores(prefix, year, group_id) {
+    const url = `https://gambit-api.fantasy.espn.com/apis/v1/challenges/${prefix}-${year}/groups/${group_id}`;
 
     const response = await fetch(url);
     return response.json();

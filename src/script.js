@@ -1,5 +1,6 @@
 /* globals Chart */
-import { fetchData } from './fetch-data.js';
+import { fetchData } from './integrations/fetch-data.js';
+import { Events } from './domain/events.js';
 
 (function () {
     const DATASET_COLORS = {
@@ -20,27 +21,39 @@ import { fetchData } from './fetch-data.js';
     main();
 
     async function main() {
-        const data = await fetchData();
+        const { filterByYearValue } = getSelectValues();
+
+        const data = await fetchData(filterByYearValue);
         console.log('data', data);
 
+        setFilterByYearChangeHandler();
         setFilterByTournamentChangeHandler(data);
         setSortByChangeHandler(data);
 
         render(data);
     }
 
+    function setFilterByYearChangeHandler() {
+        const { selectYear } = getChangeableElements();
+        selectYear.addEventListener(Events.CHANGE, async () => {
+            console.log(`${selectYear.id} ${Events.CHANGE}`, selectYear.value);
+            const data = await fetchData(selectYear.value);
+            render(data);
+        });
+    }
+
     function setFilterByTournamentChangeHandler(data) {
-        const selectTournament = document.getElementById('select-tournament');
-        selectTournament.addEventListener('change', () => {
-            console.log('select-tournament change', selectTournament.value);
+        const { selectTournament } = getChangeableElements();
+        selectTournament.addEventListener(Events.CHANGE, () => {
+            console.log(`${selectTournament.id} ${Events.CHANGE}`, selectTournament.value);
             render(data);
         });
     }
 
     function setSortByChangeHandler(data) {
-        const selectSortBy = document.getElementById('select-sort-by');
-        selectSortBy.addEventListener('change', () => {
-            console.log('select-sort-by change', selectSortBy.value);
+        const { selectSortBy } = getChangeableElements();
+        selectSortBy.addEventListener(Events.CHANGE, () => {
+            console.log(`${selectSortBy.id} ${Events.CHANGE}`, selectSortBy.value);
             render(data);
         });
     }
@@ -61,11 +74,23 @@ import { fetchData } from './fetch-data.js';
         renderChart(labels, datasets);
     }
 
+    function getChangeableElements() {
+        return {
+            selectYear: document.getElementById('select-year'),
+            selectTournament: document.getElementById('select-tournament'),
+            selectSortBy: document.getElementById('select-sort-by'),
+        };
+    }
+
     function getSelectValues() {
-        const selectTournament = document.getElementById('select-tournament');
-        const selectSortBy = document.getElementById('select-sort-by');
+        const {
+            selectYear,
+            selectTournament,
+            selectSortBy,
+        } = getChangeableElements();
 
         return {
+            filterByYearValue: selectYear.value,
             filterByTournamentValue: selectTournament.value,
             sortByValue: selectSortBy.value,
         };
