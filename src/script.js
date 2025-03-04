@@ -83,11 +83,7 @@ import { Events } from './domain/events.js';
     }
 
     function getSelectValues() {
-        const {
-            selectYear,
-            selectTournament,
-            selectSortBy,
-        } = getChangeableElements();
+        const { selectYear, selectTournament, selectSortBy } = getChangeableElements();
 
         return {
             filterByYearValue: selectYear.value,
@@ -106,9 +102,11 @@ import { Events } from './domain/events.js';
             challengers: data.challengers.map((challenger) => {
                 return {
                     displayName: challenger.displayName,
-                    brackets: challenger.brackets.filter((bracket) => bracket.gender === filterByTournamentValue),
+                    brackets: challenger.brackets.filter(
+                        (bracket) => bracket.gender === filterByTournamentValue,
+                    ),
                 };
-            })
+            }),
         };
     }
 
@@ -116,7 +114,9 @@ import { Events } from './domain/events.js';
         return data.challengers.map((challenger) => {
             return {
                 displayName: challenger.displayName,
-                scores: challenger.brackets.map(sumRounds).reduce(combineBrackets, { score: 0, remainingScore: 0, maxPossibleScore: 0 }),
+                scores: challenger.brackets
+                    .map(sumRounds)
+                    .reduce(combineBrackets, { score: 0, remainingScore: 0, maxPossibleScore: 0 }),
             };
         });
     }
@@ -124,8 +124,14 @@ import { Events } from './domain/events.js';
     function sumRounds(bracket) {
         return {
             score: bracket.rounds.reduce((acc, round) => acc + round.score, 0),
-            remainingScore: bracket.rounds.reduce((acc, round) => acc + round.possiblePointsMax - round.score, 0),
-            maxPossibleScore: bracket.rounds.reduce((acc, round) => acc + round.possiblePointsMax, 0),
+            remainingScore: bracket.rounds.reduce(
+                (acc, round) => acc + round.possiblePointsMax - round.score,
+                0,
+            ),
+            maxPossibleScore: bracket.rounds.reduce(
+                (acc, round) => acc + round.possiblePointsMax,
+                0,
+            ),
         };
     }
 
@@ -139,9 +145,11 @@ import { Events } from './domain/events.js';
 
     function sortData(data, sortByValue) {
         console.log('sortByValue', sortByValue);
-        return data.sort((a, b) => {
-            return a.scores[sortByValue] - b.scores[sortByValue];
-        }).reverse();
+        return data
+            .sort((a, b) => {
+                return a.scores[sortByValue] - b.scores[sortByValue];
+            })
+            .reverse();
     }
 
     function prepareChartData(sortedData) {
@@ -190,9 +198,9 @@ import { Events } from './domain/events.js';
                     y: {
                         beginAtZero: true,
                         stacked: true,
-                    }
-                }
-            }
+                    },
+                },
+            },
         });
     }
 })();

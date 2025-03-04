@@ -7,7 +7,6 @@ const ESPN_ID_MAP = {
     '{A96363C0-81E1-4903-A58C-3A2740CC8B88}': 'Emma V.',
     '{36B40A82-310D-423A-9642-2D625C58D1C9}': 'Debbie',
     '{56A2B8F0-08C2-44DA-80A6-113982402043}': 'Matthew',
-    '{0DF20C41-CA70-43ED-900B-D219925DB253}': 'Hannah',
 };
 
 const GROUPS = {
@@ -25,11 +24,13 @@ export async function fetchData(year) {
     console.log('Fetching data for year', year);
 
     const scores = [];
-    await Promise.all(Object.entries(GROUPS).map(async ([gender, details]) => {
-        const responseJson = await getGroupScores(details.prefix, year, details.group_id);
+    await Promise.all(
+        Object.entries(GROUPS).map(async ([gender, details]) => {
+            const responseJson = await getGroupScores(details.prefix, year, details.group_id);
 
-        scores.push(parseScores(responseJson, gender));
-    }));
+            scores.push(parseScores(responseJson, gender));
+        }),
+    );
 
     const combinedScores = zipScores(scores);
 
@@ -44,7 +45,7 @@ async function getGroupScores(prefix, year, group_id) {
 }
 
 function parseScores(responseJson, gender) {
-    return responseJson.entries.map(entry => extractChallenger(gender, entry));
+    return responseJson.entries.map((entry) => extractChallenger(gender, entry));
 }
 
 function extractChallenger(gender, entry) {
@@ -62,15 +63,15 @@ function extractBracket(gender, scoreByPeriod) {
                 score: score.score,
                 possiblePointsMax: score.possiblePointsMax,
             };
-        })
+        }),
     };
 }
 
 function zipScores(scores) {
     const challengerBrackets = {};
 
-    scores.forEach(genderScores => {
-        genderScores.forEach(score => {
+    scores.forEach((genderScores) => {
+        genderScores.forEach((score) => {
             Object.entries(score).forEach(([challenger, bracket]) => {
                 if (!challengerBrackets[challenger]) {
                     challengerBrackets[challenger] = [];
@@ -87,7 +88,9 @@ function zipScores(scores) {
         };
     });
 
+    const cleanedScores = combinedScores.filter((challenger) => challenger.displayName);
+
     return {
-        challengers: combinedScores
+        challengers: cleanedScores,
     };
 }
