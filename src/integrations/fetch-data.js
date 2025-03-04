@@ -7,42 +7,45 @@ const ESPN_ID_MAP = {
     '{A96363C0-81E1-4903-A58C-3A2740CC8B88}': 'Emma V.',
     '{36B40A82-310D-423A-9642-2D625C58D1C9}': 'Debbie',
     '{56A2B8F0-08C2-44DA-80A6-113982402043}': 'Matthew',
-    '{0DF20C41-CA70-43ED-900B-D219925DB253}': 'Hannah',
 };
 
 const GROUPS = {
     mens: {
-        prefix: 'tournament-challenge-bracket-2024',
+        prefix: 'tournament-challenge-bracket',
         group_id: '5a64cc67-7fc4-3fb2-9c9c-6c0d92a85b8c',
     },
     womens: {
-        prefix: 'tournament-challenge-bracket-women-2024',
+        prefix: 'tournament-challenge-bracket-women',
         group_id: 'c1e10bcb-3f29-4203-a899-981ad9bd3b46',
     },
 };
 
-export async function fetchData() {
-    const scores = [];
-    await Promise.all(Object.entries(GROUPS).map(async ([gender, details]) => {
-        const responseJson = await getGroupScores(details.prefix, details.group_id);
+export async function fetchData(year) {
+    console.log('Fetching data for year', year);
 
-        scores.push(parseScores(responseJson, gender));
-    }));
+    const scores = [];
+    await Promise.all(
+        Object.entries(GROUPS).map(async ([gender, details]) => {
+            const responseJson = await getGroupScores(details.prefix, year, details.group_id);
+
+            scores.push(parseScores(responseJson, gender));
+        }),
+    );
 
     const combinedScores = zipScores(scores);
 
     return combinedScores;
 }
 
-async function getGroupScores(prefix, group_id) {
-    const url = `https://gambit-api.fantasy.espn.com/apis/v1/challenges/${prefix}/groups/${group_id}`;
+async function getGroupScores(prefix, year, group_id) {
+    const url = `https://gambit-api.fantasy.espn.com/apis/v1/challenges/${prefix}-${year}/groups/${group_id}`;
 
     const response = await fetch(url);
     return response.json();
 }
 
 function parseScores(responseJson, gender) {
-    return responseJson.entries.map(entry => extractChallenger(gender, entry));
+    return responseJson.entries.map((entry) => extractChallenger(gender, entry));
 }
 
 function extractChallenger(gender, entry) {
@@ -60,15 +63,15 @@ function extractBracket(gender, scoreByPeriod) {
                 score: score.score,
                 possiblePointsMax: score.possiblePointsMax,
             };
-        })
+        }),
     };
 }
 
 function zipScores(scores) {
     const challengerBrackets = {};
 
-    scores.forEach(genderScores => {
-        genderScores.forEach(score => {
+    scores.forEach((genderScores) => {
+        genderScores.forEach((score) => {
             Object.entries(score).forEach(([challenger, bracket]) => {
                 if (!challengerBrackets[challenger]) {
                     challengerBrackets[challenger] = [];
@@ -85,7 +88,9 @@ function zipScores(scores) {
         };
     });
 
+    const cleanedScores = combinedScores.filter((challenger) => challenger.displayName);
+
     return {
-        challengers: combinedScores
+        challengers: cleanedScores,
     };
 }

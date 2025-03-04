@@ -1,0 +1,11 @@
+{
+    "transform": {},
+    "moduleNameMapper": {
+        "^(\\.{1,2}/.*)\\.js$": "$1"
+    },
+    "testEnvironment": "node",
+    "collectCoverage": true,
+    "coverageDirectory": "coverage",
+    "coverageReporters": ["text", "lcov"],
+    "verbose": true
+}
