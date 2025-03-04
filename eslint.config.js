@@ -15,6 +15,9 @@ export default [
         linterOptions: {
             reportUnusedDisableDirectives: true,
         },
+        plugins: {
+            import: await import('eslint-plugin-import')
+        },
         rules: {
             // Possible Errors
             'no-console': ['warn', { allow: ['warn', 'error'] }],
@@ -71,6 +74,23 @@ export default [
             'no-var': 'error',
             'prefer-const': 'error',
             'prefer-template': 'error',
+
+            // Imports
+            'import/order': ['error', {
+                'groups': [
+                    'builtin',     // Built-in imports (come from NodeJS)
+                    'external',     // npm install packages
+                    'internal',     // Absolute imports
+                    ['sibling', 'parent'], // Relative imports
+                    'index',       // index imports
+                    'unknown'      // unknown
+                ],
+                'newlines-between': 'always',
+                'alphabetize': {
+                    'order': 'asc',
+                    'caseInsensitive': true
+                }
+            }],
         },
     },
     {

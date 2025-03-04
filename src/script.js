@@ -1,6 +1,6 @@
 /* globals Chart */
-import { fetchData } from './integrations/fetch-data.js';
 import { Events } from './domain/events.js';
+import { DataState } from './state/data-state.js';
 
 (function () {
     const DATASET_COLORS = {
@@ -21,40 +21,41 @@ import { Events } from './domain/events.js';
     main();
 
     async function main() {
+        const dataState = new DataState();
+
         const { filterByYearValue } = getSelectValues();
 
-        const data = await fetchData(filterByYearValue);
-        console.log('data', data);
+        await dataState.updateData(filterByYearValue);
 
-        setFilterByYearChangeHandler();
-        setFilterByTournamentChangeHandler(data);
-        setSortByChangeHandler(data);
+        setFilterByYearChangeHandler(dataState);
+        setFilterByTournamentChangeHandler(dataState);
+        setSortByChangeHandler(dataState);
 
-        render(data);
+        render(dataState.getData());
     }
 
-    function setFilterByYearChangeHandler() {
+    function setFilterByYearChangeHandler(dataState) {
         const { selectYear } = getChangeableElements();
         selectYear.addEventListener(Events.CHANGE, async () => {
             console.log(`${selectYear.id} ${Events.CHANGE}`, selectYear.value);
-            const data = await fetchData(selectYear.value);
+            const data = await dataState.updateData(selectYear.value);
             render(data);
         });
     }
 
-    function setFilterByTournamentChangeHandler(data) {
+    function setFilterByTournamentChangeHandler(dataState) {
         const { selectTournament } = getChangeableElements();
         selectTournament.addEventListener(Events.CHANGE, () => {
             console.log(`${selectTournament.id} ${Events.CHANGE}`, selectTournament.value);
-            render(data);
+            render(dataState.getData());
         });
     }
 
-    function setSortByChangeHandler(data) {
+    function setSortByChangeHandler(dataState) {
         const { selectSortBy } = getChangeableElements();
         selectSortBy.addEventListener(Events.CHANGE, () => {
             console.log(`${selectSortBy.id} ${Events.CHANGE}`, selectSortBy.value);
-            render(data);
+            render(dataState.getData());
         });
     }
 
