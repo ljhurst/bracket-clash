@@ -1,4 +1,5 @@
 import { jest } from '@jest/globals';
+
 import { fetchData } from '../../../src/integrations/fetch-data.js';
 
 describe('fetchData', () => {
