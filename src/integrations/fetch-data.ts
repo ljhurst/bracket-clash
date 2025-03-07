@@ -1,4 +1,15 @@
-const ESPN_ID_MAP = {
+import {
+    ChallengeGroup,
+    ChallengeEntry,
+    ChallengeScoreByPeriod,
+} from '../domain/brackets/api-schema.js';
+import { ClashData, ClashBracket } from '../domain/brackets/clash.js';
+
+type MemberToBracket = Record<string, ClashBracket>;
+type MemberToBrackets = Record<string, ClashBracket[]>;
+type GroupBrackets = MemberToBracket[];
+
+const ESPN_ID_MAP: Record<string, string> = {
     '{E00185BE-993E-425F-8185-BE993E625F84}': 'Luke',
     '{ABBA3098-00E7-4D1B-8ED0-0CF6E3D6CDC9}': 'Pete',
     '{CA11938A-A78D-4D6C-9227-1E4C19D8D0DA}': 'Emma S.',
@@ -20,10 +31,10 @@ const GROUPS = {
     },
 };
 
-export async function fetchData(year) {
+export async function fetchData(year: string): Promise<ClashData> {
     console.log('Fetching data for year', year);
 
-    const scores = [];
+    const scores: GroupBrackets[] = [];
     await Promise.all(
         Object.entries(GROUPS).map(async ([gender, details]) => {
             const responseJson = await getGroupScores(details.prefix, year, details.group_id);
@@ -37,24 +48,28 @@ export async function fetchData(year) {
     return combinedScores;
 }
 
-async function getGroupScores(prefix, year, group_id) {
+async function getGroupScores(
+    prefix: string,
+    year: string,
+    group_id: string,
+): Promise<ChallengeGroup> {
     const url = `https://gambit-api.fantasy.espn.com/apis/v1/challenges/${prefix}-${year}/groups/${group_id}`;
 
     const response = await fetch(url);
     return response.json();
 }
 
-function parseScores(responseJson, gender) {
+function parseScores(responseJson: ChallengeGroup, gender: string): GroupBrackets {
     return responseJson.entries.map((entry) => extractChallenger(gender, entry));
 }
 
-function extractChallenger(gender, entry) {
+function extractChallenger(gender: string, entry: ChallengeEntry): MemberToBracket {
     return {
         [entry.member.id]: extractBracket(gender, entry.score.scoreByPeriod),
     };
 }
 
-function extractBracket(gender, scoreByPeriod) {
+function extractBracket(gender: string, scoreByPeriod: ChallengeScoreByPeriod): ClashBracket {
     return {
         gender,
         rounds: Object.entries(scoreByPeriod).map(([round, score]) => {
@@ -67,8 +82,8 @@ function extractBracket(gender, scoreByPeriod) {
     };
 }
 
-function zipScores(scores) {
-    const challengerBrackets = {};
+function zipScores(scores: GroupBrackets[]): ClashData {
+    const challengerBrackets: MemberToBrackets = {};
 
     scores.forEach((genderScores) => {
         genderScores.forEach((score) => {

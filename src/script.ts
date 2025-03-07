@@ -1,6 +1,14 @@
-/* globals Chart */
+import {
+    AggregateChallenger,
+    AggregateScores,
+    AggregateScoresKey,
+} from './domain/brackets/aggregate.js';
+import { ClashBracket, ClashData } from './domain/brackets/clash.js';
+import { ChartDataSet } from './domain/chart-data.js';
 import { Events } from './domain/events.js';
 import { DataState } from './state/data-state.js';
+
+declare const Chart: any;
 
 (function () {
     const DATASET_COLORS = {
@@ -16,7 +24,7 @@ import { DataState } from './state/data-state.js';
 
     Chart.defaults.color = 'white';
 
-    let CHART = null;
+    let CHART: Chart | null = null;
 
     main();
 
@@ -34,16 +42,16 @@ import { DataState } from './state/data-state.js';
         render(dataState.getData());
     }
 
-    function setFilterByYearChangeHandler(dataState) {
+    function setFilterByYearChangeHandler(dataState: DataState): void {
         const { selectYear } = getChangeableElements();
         selectYear.addEventListener(Events.CHANGE, async () => {
             console.log(`${selectYear.id} ${Events.CHANGE}`, selectYear.value);
-            const data = await dataState.updateData(selectYear.value);
-            render(data);
+            await dataState.updateData(selectYear.value);
+            render(dataState.getData());
         });
     }
 
-    function setFilterByTournamentChangeHandler(dataState) {
+    function setFilterByTournamentChangeHandler(dataState: DataState): void {
         const { selectTournament } = getChangeableElements();
         selectTournament.addEventListener(Events.CHANGE, () => {
             console.log(`${selectTournament.id} ${Events.CHANGE}`, selectTournament.value);
@@ -51,7 +59,7 @@ import { DataState } from './state/data-state.js';
         });
     }
 
-    function setSortByChangeHandler(dataState) {
+    function setSortByChangeHandler(dataState: DataState): void {
         const { selectSortBy } = getChangeableElements();
         selectSortBy.addEventListener(Events.CHANGE, () => {
             console.log(`${selectSortBy.id} ${Events.CHANGE}`, selectSortBy.value);
@@ -59,7 +67,11 @@ import { DataState } from './state/data-state.js';
         });
     }
 
-    function render(data) {
+    function render(data: ClashData | null): void {
+        if (!data) {
+            return;
+        }
+
         const { filterByTournamentValue, sortByValue } = getSelectValues();
 
         const filteredData = filterData(data, filterByTournamentValue);
@@ -75,15 +87,19 @@ import { DataState } from './state/data-state.js';
         renderChart(labels, datasets);
     }
 
-    function getChangeableElements() {
+    function getChangeableElements(): Record<string, HTMLSelectElement> {
         return {
-            selectYear: document.getElementById('select-year'),
-            selectTournament: document.getElementById('select-tournament'),
-            selectSortBy: document.getElementById('select-sort-by'),
+            selectYear: getSelectElement('select-year'),
+            selectTournament: getSelectElement('select-tournament'),
+            selectSortBy: getSelectElement('select-sort-by'),
         };
     }
 
-    function getSelectValues() {
+    function getSelectElement(id: string): HTMLSelectElement {
+        return document.getElementById(id) as HTMLSelectElement;
+    }
+
+    function getSelectValues(): Record<string, string> {
         const { selectYear, selectTournament, selectSortBy } = getChangeableElements();
 
         return {
@@ -93,7 +109,7 @@ import { DataState } from './state/data-state.js';
         };
     }
 
-    function filterData(data, filterByTournamentValue) {
+    function filterData(data: ClashData, filterByTournamentValue: string): ClashData {
         console.log('filterByTournamentValue', filterByTournamentValue);
         if (filterByTournamentValue === 'all') {
             return data;
@@ -111,7 +127,7 @@ import { DataState } from './state/data-state.js';
         };
     }
 
-    function sumScores(data) {
+    function sumScores(data: ClashData): AggregateChallenger[] {
         return data.challengers.map((challenger) => {
             return {
                 displayName: challenger.displayName,
@@ -122,7 +138,7 @@ import { DataState } from './state/data-state.js';
         });
     }
 
-    function sumRounds(bracket) {
+    function sumRounds(bracket: ClashBracket): AggregateScores {
         return {
             score: bracket.rounds.reduce((acc, round) => acc + round.score, 0),
             remainingScore: bracket.rounds.reduce(
@@ -136,7 +152,7 @@ import { DataState } from './state/data-state.js';
         };
     }
 
-    function combineBrackets(acc, bracket) {
+    function combineBrackets(acc: AggregateScores, bracket: AggregateScores): AggregateScores {
         return {
             score: acc.score + bracket.score,
             remainingScore: acc.remainingScore + bracket.remainingScore,
@@ -144,16 +160,19 @@ import { DataState } from './state/data-state.js';
         };
     }
 
-    function sortData(data, sortByValue) {
+    function sortData(data: AggregateChallenger[], sortByValue: string): AggregateChallenger[] {
         console.log('sortByValue', sortByValue);
         return data
             .sort((a, b) => {
-                return a.scores[sortByValue] - b.scores[sortByValue];
+                return (
+                    a.scores[sortByValue as AggregateScoresKey] -
+                    b.scores[sortByValue as AggregateScoresKey]
+                );
             })
             .reverse();
     }
 
-    function prepareChartData(sortedData) {
+    function prepareChartData(sortedData: AggregateChallenger[]) {
         const labels = sortedData.map((challenger) => challenger.displayName);
         const datasets = [
             {
@@ -175,11 +194,11 @@ import { DataState } from './state/data-state.js';
         return { labels, datasets };
     }
 
-    function renderChart(labels, datasets) {
+    function renderChart(labels: string[], datasets: ChartDataSet[]): void {
         console.log('labels', labels);
         console.log('datasets', datasets);
 
-        const ctx = document.getElementById('scores-chart');
+        const ctx = document.getElementById('scores-chart') as HTMLCanvasElement;
 
         if (CHART) {
             CHART.destroy();
