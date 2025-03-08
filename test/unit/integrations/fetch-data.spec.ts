@@ -15,7 +15,7 @@ describe('fetchData', () => {
 
     it('fetches data successfully', async () => {
         const mockYear = '2021';
-        const mockData = {
+        const mockData = Promise.resolve({
             entries: [
                 {
                     member: {
@@ -31,7 +31,7 @@ describe('fetchData', () => {
                     },
                 },
             ],
-        };
+        });
 
         const mockFetch = global.fetch as MockFetch;
         mockFetch

@@ -1,8 +1,12 @@
-import { RoundScore } from './round-score.js';
+interface ClashRoundScore {
+    round: string;
+    score: number;
+    possiblePointsMax: number;
+}
 
 interface ClashBracket {
     gender: string;
-    rounds: RoundScore[];
+    rounds: ClashRoundScore[];
 }
 
 interface ClashChallenger {
@@ -14,4 +18,4 @@ interface ClashData {
     challengers: ClashChallenger[];
 }
 
-export { ClashData, ClashBracket };
+export { ClashData, ClashBracket, ClashRoundScore };

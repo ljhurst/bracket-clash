@@ -1,7 +1,10 @@
-import { RoundScore } from './round-score.js';
+interface ChallengeRoundScore {
+    score: number;
+    possiblePointsMax: number;
+}
 
 interface ChallengeScoreByPeriod {
-    round: RoundScore;
+    [round: string]: ChallengeRoundScore;
 }
 
 interface ChallengeMember {
@@ -21,4 +24,4 @@ interface ChallengeGroup {
     entries: ChallengeEntry[];
 }
 
-export { ChallengeGroup, ChallengeEntry, ChallengeScoreByPeriod };
+export { ChallengeGroup, ChallengeEntry, ChallengeScoreByPeriod, ChallengeRoundScore };

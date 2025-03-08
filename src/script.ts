@@ -8,6 +8,7 @@ import { ChartDataSet } from './domain/chart-data.js';
 import { Events } from './domain/events.js';
 import { DataState } from './state/data-state.js';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const Chart: any;
 
 (function () {
@@ -22,13 +23,16 @@ declare const Chart: any;
         },
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     Chart.defaults.color = 'white';
 
     let CHART: Chart | null = null;
 
-    main();
+    main().catch((error) => {
+        console.error('Error in main', error);
+    });
 
-    async function main() {
+    async function main(): Promise<void> {
         const dataState = new DataState();
 
         const { filterByYearValue } = getSelectValues();
@@ -44,10 +48,16 @@ declare const Chart: any;
 
     function setFilterByYearChangeHandler(dataState: DataState): void {
         const { selectYear } = getChangeableElements();
-        selectYear.addEventListener(Events.CHANGE, async () => {
+        selectYear.addEventListener(Events.CHANGE, () => {
             console.log(`${selectYear.id} ${Events.CHANGE}`, selectYear.value);
-            await dataState.updateData(selectYear.value);
-            render(dataState.getData());
+            dataState
+                .updateData(selectYear.value)
+                .then(() => {
+                    render(dataState.getData());
+                })
+                .catch((error) => {
+                    console.error('Error in setFilterByYearChangeHandler', error);
+                });
         });
     }
 
@@ -204,6 +214,7 @@ declare const Chart: any;
             CHART.destroy();
         }
 
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
         CHART = new Chart(ctx, {
             type: 'bar',
             data: {

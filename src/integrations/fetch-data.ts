@@ -1,9 +1,10 @@
 import {
-    ChallengeGroup,
     ChallengeEntry,
+    ChallengeGroup,
+    ChallengeRoundScore,
     ChallengeScoreByPeriod,
 } from '../domain/brackets/api-schema.js';
-import { ClashData, ClashBracket } from '../domain/brackets/clash.js';
+import { ClashData, ClashBracket, ClashRoundScore } from '../domain/brackets/clash.js';
 
 type MemberToBracket = Record<string, ClashBracket>;
 type MemberToBrackets = Record<string, ClashBracket[]>;
@@ -56,7 +57,7 @@ async function getGroupScores(
     const url = `https://gambit-api.fantasy.espn.com/apis/v1/challenges/${prefix}-${year}/groups/${group_id}`;
 
     const response = await fetch(url);
-    return response.json();
+    return response.json() as Promise<ChallengeGroup>;
 }
 
 function parseScores(responseJson: ChallengeGroup, gender: string): GroupBrackets {
@@ -70,15 +71,21 @@ function extractChallenger(gender: string, entry: ChallengeEntry): MemberToBrack
 }
 
 function extractBracket(gender: string, scoreByPeriod: ChallengeScoreByPeriod): ClashBracket {
+    const rounds = Object.entries(scoreByPeriod).map(([round, score]) =>
+        extractRound(round, score),
+    );
+
     return {
         gender,
-        rounds: Object.entries(scoreByPeriod).map(([round, score]) => {
-            return {
-                round,
-                score: score.score,
-                possiblePointsMax: score.possiblePointsMax,
-            };
-        }),
+        rounds,
+    };
+}
+
+function extractRound(round: string, score: ChallengeRoundScore): ClashRoundScore {
+    return {
+        round,
+        score: score.score,
+        possiblePointsMax: score.possiblePointsMax,
     };
 }
 
