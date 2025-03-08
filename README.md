@@ -8,6 +8,12 @@ http://lj-bracket-clash.s3-website-us-east-1.amazonaws.com
 
 # Deploy Instructions
 
+1. Build
+
+	```bash
+	npm run build
+	```
+
 1. Log in to AWS
 
 	Go to [AWS](https://aws.com) and log in with root user email
@@ -20,7 +26,7 @@ http://lj-bracket-clash.s3-website-us-east-1.amazonaws.com
 
 	- `assets/`
 	- `index.html`
-	- `src/`
+	- `dist/`
 
 # Local Development
 
@@ -60,12 +66,18 @@ We use [ESLint](https://eslint.org/) for linting
 npm run lint:fix
 ```
 
+## Release
 
+There is a helper command to do all of the above steps and build
+
+```bash
+npm run release
+```
 
 
 # Tech Stack
 
-- Native JavaScript
+- TypeScript
 - HTML
 - Styling via [Bulma](https://bulma.io/)
 - Charts by [Chart.js](https://www.chartjs.org/)

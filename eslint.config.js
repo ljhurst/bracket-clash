@@ -1,23 +1,23 @@
-import globals from 'globals';
+import eslint from '@eslint/js';
+import tseslint from 'typescript-eslint';
+import prettier from 'eslint-config-prettier';
 
-export default [
+export default tseslint.config(
+    eslint.configs.recommended,
+    ...tseslint.configs.recommended,
+    ...tseslint.configs.recommendedTypeChecked,
     {
         languageOptions: {
-            ecmaVersion: 2022,
-            sourceType: 'module',
-            globals: {
-                ...globals.browser,
-                ...globals.es2021,
-                ...globals.node,
-                ...globals.jest,
+            parserOptions: {
+                project: true,
+                tsconfigRootDir: import.meta.dirname,
             },
-        },
-        linterOptions: {
-            reportUnusedDisableDirectives: true,
         },
         plugins: {
             import: await import('eslint-plugin-import')
         },
+      },
+      {
         rules: {
             // Possible Errors
             'no-console': ['warn', { allow: ['warn', 'error'] }],
@@ -94,9 +94,9 @@ export default [
         },
     },
     {
-        files: ['**/*.test.js', 'tests/**/*.js'],
+        files: ['src/**/*.ts', 'test/**/*.ts'],
         rules: {
             'max-len': 'off',
         },
     },
-];
+);

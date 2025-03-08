@@ -1,18 +1,15 @@
+import { ClashData } from '../domain/brackets/clash.js';
 import { fetchData } from '../integrations/fetch-data.js';
 
 class DataState {
-    constructor() {
-        this.data = null;
-    }
+    private data: ClashData | null = null;
 
-    async updateData(year) {
+    async updateData(year: string): Promise<void> {
         this.data = await fetchData(year);
         console.log('data', this.data);
-
-        return this.data;
     }
 
-    getData() {
+    getData(): ClashData | null {
         return this.data;
     }
 }

@@ -2,9 +2,11 @@ import { jest } from '@jest/globals';
 
 import { fetchData } from '../../../src/integrations/fetch-data.js';
 
+type MockFetch = jest.MockedFunction<typeof fetch>;
+
 describe('fetchData', () => {
     beforeEach(() => {
-        global.fetch = jest.fn();
+        global.fetch = jest.fn() as MockFetch;
     });
 
     afterEach(() => {
@@ -12,8 +14,8 @@ describe('fetchData', () => {
     });
 
     it('fetches data successfully', async () => {
-        const mockYear = 2021;
-        const mockData = {
+        const mockYear = '2021';
+        const mockData = Promise.resolve({
             entries: [
                 {
                     member: {
@@ -29,16 +31,18 @@ describe('fetchData', () => {
                     },
                 },
             ],
-        };
-        global.fetch
+        });
+
+        const mockFetch = global.fetch as MockFetch;
+        mockFetch
             .mockResolvedValueOnce({
                 ok: true,
                 json: async () => mockData,
-            })
+            } as Response)
             .mockResolvedValueOnce({
                 ok: true,
                 json: async () => mockData,
-            });
+            } as Response);
 
         const result = await fetchData(mockYear);
 
