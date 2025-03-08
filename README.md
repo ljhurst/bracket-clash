@@ -66,7 +66,13 @@ We use [ESLint](https://eslint.org/) for linting
 npm run lint:fix
 ```
 
+## Release
 
+There is a helper command to do all of the above steps and build
+
+```bash
+npm run release
+```
 
 
 # Tech Stack
