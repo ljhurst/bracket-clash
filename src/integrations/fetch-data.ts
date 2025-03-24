@@ -5,6 +5,7 @@ import {
     ChallengeScoreByPeriod,
 } from '../domain/brackets/api-schema.js';
 import { ClashData, ClashBracket, ClashRoundScore } from '../domain/brackets/clash.js';
+import { OverrideManifest } from '../domain/override/override-manifest.js';
 
 type MemberToBracket = Record<string, ClashBracket>;
 type MemberToBrackets = Record<string, ClashBracket[]>;
@@ -39,8 +40,11 @@ export async function fetchData(year: string): Promise<ClashData> {
     await Promise.all(
         Object.entries(GROUPS).map(async ([gender, details]) => {
             const responseJson = await getGroupScores(details.prefix, year, details.group_id);
+            const overrideJson = await getOverrideGroupScores(gender, year);
 
-            scores.push(parseScores(responseJson, gender));
+            const overriddenResponseJson = overrideGroupScores(responseJson, overrideJson);
+
+            scores.push(parseScores(overriddenResponseJson, gender));
         }),
     );
 
@@ -58,6 +62,45 @@ async function getGroupScores(
 
     const response = await fetch(url);
     return response.json() as Promise<ChallengeGroup>;
+}
+
+async function getOverrideGroupScores(gender: string, year: string): Promise<ChallengeGroup> {
+    const manifest = await getOverrideManifest();
+
+    if (!manifest[gender] || !manifest[gender][year]) {
+        return { entries: [] };
+    }
+
+    const url = `assets/override/${gender}/${year}/override.json`;
+    const overrideResponse = await fetch(url);
+
+    return overrideResponse.json() as Promise<ChallengeGroup>;
+}
+
+async function getOverrideManifest(): Promise<OverrideManifest> {
+    const manifestUrl = 'assets/override/manifest.json';
+    const manifestResponse = await fetch(manifestUrl);
+    return manifestResponse.json() as Promise<OverrideManifest>;
+}
+
+function overrideGroupScores(
+    responseJson: ChallengeGroup,
+    overrideJson: ChallengeGroup,
+): ChallengeGroup {
+    const overriddenEntries = responseJson.entries.map((entry) => {
+        const overrideEntry = overrideJson.entries.find(
+            (override) => override.member.id === entry.member.id,
+        );
+
+        if (overrideEntry) {
+            return overrideEntry;
+        }
+        return entry;
+    });
+
+    return {
+        entries: overriddenEntries,
+    };
 }
 
 function parseScores(responseJson: ChallengeGroup, gender: string): GroupBrackets {
