@@ -1,0 +1,37 @@
+{
+    "entries": [
+        {
+            "member": {
+                "id": "{ABBA3098-00E7-4D1B-8ED0-0CF6E3D6CDC9}"
+            },
+            "score": {
+                "scoreByPeriod": {
+                    "1": {
+                        "score": 280,
+                        "possiblePointsMax": 280
+                    },
+                    "2": {
+                        "score": 0,
+                        "possiblePointsMax": 320
+                    },
+                    "3": {
+                        "score": 0,
+                        "possiblePointsMax": 320
+                    },
+                    "4": {
+                        "score": 0,
+                        "possiblePointsMax": 320
+                    },
+                    "5": {
+                        "score": 0,
+                        "possiblePointsMax": 320
+                    },
+                    "6": {
+                        "score": 0,
+                        "possiblePointsMax": 320
+                    }
+                }
+            }
+        }
+    ]
+}

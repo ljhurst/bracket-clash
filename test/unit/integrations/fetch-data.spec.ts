@@ -15,6 +15,7 @@ describe('fetchData', () => {
 
     it('fetches data successfully', async () => {
         const mockYear = '2021';
+        const mockManifest = Promise.resolve({});
         const mockData = Promise.resolve({
             entries: [
                 {
@@ -42,6 +43,14 @@ describe('fetchData', () => {
             .mockResolvedValueOnce({
                 ok: true,
                 json: async () => mockData,
+            } as Response)
+            .mockResolvedValueOnce({
+                ok: true,
+                json: async () => mockManifest,
+            } as Response)
+            .mockResolvedValueOnce({
+                ok: true,
+                json: async () => mockManifest,
             } as Response);
 
         const result = await fetchData(mockYear);
@@ -77,6 +86,6 @@ describe('fetchData', () => {
         };
 
         expect(result).toEqual(expectedFetchedData);
-        expect(fetch).toHaveBeenCalledTimes(2);
+        expect(fetch).toHaveBeenCalledTimes(4);
     });
 });
