@@ -5,6 +5,7 @@ import {
     ChallengeScoreByPeriod,
 } from '../domain/brackets/api-schema.js';
 import { ClashData, ClashBracket, ClashRoundScore } from '../domain/brackets/clash.js';
+import { Gender } from '../domain/genders';
 import { OverrideManifest } from '../domain/override/override-manifest.js';
 
 type MemberToBracket = Record<string, ClashBracket>;
@@ -23,11 +24,11 @@ const ESPN_ID_MAP: Record<string, string> = {
 };
 
 const GROUPS = {
-    mens: {
+    [Gender.MENS]: {
         prefix: 'tournament-challenge-bracket',
         group_id: '5a64cc67-7fc4-3fb2-9c9c-6c0d92a85b8c',
     },
-    womens: {
+    [Gender.WOMENS]: {
         prefix: 'tournament-challenge-bracket-women',
         group_id: 'c1e10bcb-3f29-4203-a899-981ad9bd3b46',
     },

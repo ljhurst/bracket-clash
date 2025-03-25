@@ -1,5 +1,5 @@
 import { ClashData } from '../domain/brackets/clash.js';
-import { fetchData } from '../integrations/fetch-data.js';
+import { fetchData } from '../integrations/fetch-data';
 
 class DataState {
     private data: ClashData | null = null;

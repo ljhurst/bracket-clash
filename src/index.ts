@@ -1,15 +1,12 @@
-import {
-    AggregateChallenger,
-    AggregateScores,
-    AggregateScoresKey,
-} from './domain/brackets/aggregate.js';
-import { ClashBracket, ClashData } from './domain/brackets/clash.js';
-import { ChartDataSet } from './domain/chart-data.js';
-import { Events } from './domain/events.js';
-import { DataState } from './state/data-state.js';
+import { Chart } from 'chart.js/auto';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-declare const Chart: any;
+import { AggregateChallenger, AggregateScoresKey } from './domain/brackets/aggregate.js';
+import { ClashData } from './domain/brackets/clash.js';
+import { ChartDataSet } from './domain/chart-data.js';
+import { Events } from './domain/events';
+import { DataState } from './state/data-state';
+import { TableState } from './state/table-state';
+import { filterBracketsByGender, sumBracketScores } from './utilities/bracket-utilities';
 
 (function () {
     const DATASET_COLORS = {
@@ -23,7 +20,6 @@ declare const Chart: any;
         },
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     Chart.defaults.color = 'white';
 
     let CHART: Chart | null = null;
@@ -39,21 +35,23 @@ declare const Chart: any;
 
         await dataState.updateData(filterByYearValue);
 
-        setFilterByYearChangeHandler(dataState);
+        const tableState: TableState = new TableState(dataState.getData());
+
+        setFilterByYearChangeHandler(dataState, tableState);
         setFilterByTournamentChangeHandler(dataState);
         setSortByChangeHandler(dataState);
 
         render(dataState.getData());
     }
 
-    function setFilterByYearChangeHandler(dataState: DataState): void {
+    function setFilterByYearChangeHandler(dataState: DataState, tableState: TableState): void {
         const { selectYear } = getChangeableElements();
         selectYear.addEventListener(Events.CHANGE, () => {
             console.log(`${selectYear.id} ${Events.CHANGE}`, selectYear.value);
             dataState
                 .updateData(selectYear.value)
                 .then(() => {
-                    render(dataState.getData());
+                    render(dataState.getData(), tableState);
                 })
                 .catch((error) => {
                     console.error('Error in setFilterByYearChangeHandler', error);
@@ -77,9 +75,13 @@ declare const Chart: any;
         });
     }
 
-    function render(data: ClashData | null): void {
+    function render(data: ClashData | null, tableState: TableState | null = null): void {
         if (!data) {
             return;
+        }
+
+        if (tableState) {
+            tableState.updateData(data);
         }
 
         const { filterByTournamentValue, sortByValue } = getSelectValues();
@@ -129,9 +131,7 @@ declare const Chart: any;
             challengers: data.challengers.map((challenger) => {
                 return {
                     displayName: challenger.displayName,
-                    brackets: challenger.brackets.filter(
-                        (bracket) => bracket.gender === filterByTournamentValue,
-                    ),
+                    brackets: filterBracketsByGender(challenger.brackets, filterByTournamentValue),
                 };
             }),
         };
@@ -141,33 +141,9 @@ declare const Chart: any;
         return data.challengers.map((challenger) => {
             return {
                 displayName: challenger.displayName,
-                scores: challenger.brackets
-                    .map(sumRounds)
-                    .reduce(combineBrackets, { score: 0, remainingScore: 0, maxPossibleScore: 0 }),
+                scores: sumBracketScores(challenger.brackets),
             };
         });
-    }
-
-    function sumRounds(bracket: ClashBracket): AggregateScores {
-        return {
-            score: bracket.rounds.reduce((acc, round) => acc + round.score, 0),
-            remainingScore: bracket.rounds.reduce(
-                (acc, round) => acc + round.possiblePointsMax - round.score,
-                0,
-            ),
-            maxPossibleScore: bracket.rounds.reduce(
-                (acc, round) => acc + round.possiblePointsMax,
-                0,
-            ),
-        };
-    }
-
-    function combineBrackets(acc: AggregateScores, bracket: AggregateScores): AggregateScores {
-        return {
-            score: acc.score + bracket.score,
-            remainingScore: acc.remainingScore + bracket.remainingScore,
-            maxPossibleScore: acc.maxPossibleScore + bracket.maxPossibleScore,
-        };
     }
 
     function sortData(data: AggregateChallenger[], sortByValue: string): AggregateChallenger[] {
@@ -214,7 +190,6 @@ declare const Chart: any;
             CHART.destroy();
         }
 
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
         CHART = new Chart(ctx, {
             type: 'bar',
             data: {
