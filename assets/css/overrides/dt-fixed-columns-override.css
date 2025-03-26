@@ -1,0 +1,11 @@
+/* stylelint-disable-next-line selector-class-pattern */
+table.dataTable th.dtfc-fixed-start.dtfc-fixed-left {
+    background-color: var(--bulma-body-background-color);
+    color: var(--bulma-text-strong);
+}
+
+/* stylelint-disable-next-line selector-class-pattern */
+table.dataTable td.dtfc-fixed-start.dtfc-fixed-left {
+    background-color: var(--bulma-body-background-color);
+    color: var(--bulma-body-color);
+}
