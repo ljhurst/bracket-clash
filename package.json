@@ -1,6 +1,6 @@
 {
   "name": "bracket-clash",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "Combine men's and women's bracket scores",
   "type": "module",
   "private": true,
