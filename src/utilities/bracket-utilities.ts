@@ -7,11 +7,13 @@ function filterBracketsByGender(brackets: ClashBracket[], gender: string): Clash
 
 function sumBracketScores(brackets: ClashBracket[]): AggregateScores {
     return brackets
-        .map(sumRounds)
-        .reduce(combineBrackets, { score: 0, remainingScore: 0, maxPossibleScore: 0 });
+        .map(_sumRounds)
+        .reduce(_combineBrackets, { score: 0, remainingScore: 0, maxPossibleScore: 0 });
 }
 
-function sumRounds(bracket: ClashBracket): AggregateScores {
+export { filterBracketsByGender, sumBracketScores };
+
+function _sumRounds(bracket: ClashBracket): AggregateScores {
     return {
         score: bracket.rounds.reduce((acc, round) => acc + round.score, 0),
         remainingScore: bracket.rounds.reduce(
@@ -22,12 +24,10 @@ function sumRounds(bracket: ClashBracket): AggregateScores {
     };
 }
 
-function combineBrackets(acc: AggregateScores, bracket: AggregateScores): AggregateScores {
+function _combineBrackets(acc: AggregateScores, bracket: AggregateScores): AggregateScores {
     return {
         score: acc.score + bracket.score,
         remainingScore: acc.remainingScore + bracket.remainingScore,
         maxPossibleScore: acc.maxPossibleScore + bracket.maxPossibleScore,
     };
 }
-
-export { filterBracketsByGender, sumBracketScores };
