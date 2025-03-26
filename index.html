@@ -1,130 +1,142 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html lang="en">
+    <head>
+        <meta charset="utf-8" />
 
-<head>
-    <meta charset="utf-8">
+        <title>Clash for the Plaque</title>
+        <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png" />
+        <link rel="manifest" href="./assets/site.webmanifest" />
+        <link rel="mask-icon" href="./assets/safari-pinned-tab.svg" color="#5bbad5" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
 
-    <title>Clash for the Plaque</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png">
-    <link rel="manifest" href="./assets/site.webmanifest">
-    <link rel="mask-icon" href="./assets/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
+        <meta charset="utf-8" />
+        <meta name="description" content="Clash for the Plaque" />
+        <meta name="author" content="Luke Hurst" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta charset="utf-8">
-    <meta name="description" content="Clash for the Plaque">
-    <meta name="author" content="Luke Hurst">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+            integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css"
+        />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdn.datatables.net/fixedcolumns/5.0.0/css/fixedColumns.dataTables.min.css"
+        />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="./assets/css/overrides/dt-fixed-columns-override.css"
+        />
+    </head>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"
-    />
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css">
-</head>
+    <body>
+        <section class="section">
+            <div class="container has-text-centered">
+                <h1 class="title">Clash for the Plaque</h1>
+            </div>
+        </section>
 
-<body>
-    <section class="section">
-        <div class="container has-text-centered">
-            <h1 class="title">
-                Clash for the Plaque
-            </h1>
-        </div>
-    </section>
-
-    <section class="section">
-        <div class="container">
-            <div class="level">
-                <div class="level-left">
-                    <div class="level-item">
-                        <div class="field">
-                            <label for="select-year" class="label">Year</label>
-                            <div class="control">
-                                <div class="select">
-                                    <select id="select-year">
-                                        <option>2025</option>
-                                        <option>2024</option>
-                                    </select>
+        <section class="section">
+            <div class="container">
+                <div class="level">
+                    <div class="level-left">
+                        <div class="level-item">
+                            <div class="field">
+                                <label for="select-year" class="label">Year</label>
+                                <div class="control">
+                                    <div class="select">
+                                        <select id="select-year">
+                                            <option>2025</option>
+                                            <option>2024</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="level-item">
-                        <div class="field">
-                            <label for="select-tournament" class="label">Tournament</label>
-                            <div class="control">
-                                <div class="select">
-                                    <select id="select-tournament">
-                                        <option value="all">All</option>
-                                        <option value="mens">Mens</option>
-                                        <option value="womens">Womens</option>
-                                    </select>
+                        <div class="level-item">
+                            <div class="field">
+                                <label for="select-tournament" class="label">Tournament</label>
+                                <div class="control">
+                                    <div class="select">
+                                        <select id="select-tournament">
+                                            <option value="all">All</option>
+                                            <option value="mens">Mens</option>
+                                            <option value="womens">Womens</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="level-item">
-                        <div class="field">
-                            <label for="select-sort-by" class="label">Sort by</label>
-                            <div class="control">
-                                <div class="select">
-                                    <select id="select-sort-by">
-                                        <option value="score">Score</option>
-                                        <option value="maxPossibleScore">Max Possible Score</option>
-                                    </select>
+                        <div class="level-item">
+                            <div class="field">
+                                <label for="select-sort-by" class="label">Sort by</label>
+                                <div class="control">
+                                    <div class="select">
+                                        <select id="select-sort-by">
+                                            <option value="score">Score</option>
+                                            <option value="maxPossibleScore">
+                                                Max Possible Score
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="section">
-        <div class="container">
-            <canvas id="scores-chart"></canvas>
-        </div>
-    </section>
-
-    <section class="section">
-        <div class="container">
-            <table id="scores-table" class=""></table>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="level">
-            <div class="level-item has-text-centered">
-                <p>
-                    Made with
-                    <span class="icon has-text-danger">
-                        <i class="fas fa-heart"></i>
-                    </span>
-                    by lessthanthree.
-                </p>
+        <section class="section">
+            <div class="container">
+                <canvas id="scores-chart"></canvas>
             </div>
-            <div class="level-item has-text-centered">
-                <p>
-                    See the source
-                    <a href="https://github.com/ljhurst/bracket-clash">
-                        <span class="icon has-text-text">
-                            <i class="fa-brands fa-github"></i>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <table id="scores-table" class=""></table>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="level">
+                <div class="level-item has-text-centered">
+                    <p>
+                        Made with
+                        <span class="icon has-text-danger">
+                            <i class="fas fa-heart"></i>
                         </span>
-                    </a>
-                </p>
+                        by lessthanthree.
+                    </p>
+                </div>
+                <div class="level-item has-text-centered">
+                    <p>
+                        See the source
+                        <a href="https://github.com/ljhurst/bracket-clash">
+                            <span class="icon has-text-text">
+                                <i class="fa-brands fa-github"></i>
+                            </span>
+                        </a>
+                    </p>
+                </div>
             </div>
-        </div>
-    </footer>
+        </footer>
 
-    <script type="module" src="./dist/bundle.js"></script>
-</body>
-
+        <script type="module" src="./dist/bundle.js"></script>
+    </body>
 </html>

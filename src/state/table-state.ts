@@ -1,4 +1,7 @@
-import DataTable from 'datatables.net';
+import 'datatables.net';
+import 'datatables.net-fixedcolumns';
+
+import DataTable from 'datatables.net-dt';
 
 import { ClashData } from '../domain/brackets/clash';
 import { Gender } from '../domain/genders';
@@ -34,9 +37,13 @@ class TableState {
                 { title: 'Max Possible Score' },
             ],
             data: dataSet,
+            fixedColumns: {
+                left: 1,
+            },
             lengthChange: false,
             order: [[3, 'desc']],
             pageLength: dataSet.length,
+            scrollX: true,
             searching: false,
         });
     }
