@@ -14,13 +14,52 @@ describe('fetchData', () => {
     });
 
     it('fetches data successfully', async () => {
+        const memberId = '{E00185BE-993E-425F-8185-BE993E625F84}';
         const mockYear = '2021';
-        const mockManifest = Promise.resolve({});
-        const mockData = Promise.resolve({
+        const mockManifest = Promise.resolve({
+            womens: {
+                [mockYear]: true,
+            },
+        });
+        const mockWomensOverride = Promise.resolve({
             entries: [
                 {
                     member: {
-                        id: '{E00185BE-993E-425F-8185-BE993E625F84}',
+                        id: memberId,
+                    },
+                    score: {
+                        scoreByPeriod: {
+                            1: {
+                                score: 10,
+                                possiblePointsMax: 20,
+                            },
+                        },
+                    },
+                },
+            ],
+        });
+        const mockMensData = Promise.resolve({
+            entries: [
+                {
+                    member: {
+                        id: memberId,
+                    },
+                    score: {
+                        scoreByPeriod: {
+                            1: {
+                                score: 1,
+                                possiblePointsMax: 2,
+                            },
+                        },
+                    },
+                },
+            ],
+        });
+        const mockWomensData = Promise.resolve({
+            entries: [
+                {
+                    member: {
+                        id: memberId,
                     },
                     score: {
                         scoreByPeriod: {
@@ -38,11 +77,15 @@ describe('fetchData', () => {
         mockFetch
             .mockResolvedValueOnce({
                 ok: true,
-                json: async () => mockData,
+                json: async () => mockMensData,
             } as Response)
             .mockResolvedValueOnce({
                 ok: true,
-                json: async () => mockData,
+                json: async () => mockWomensData,
+            } as Response)
+            .mockResolvedValueOnce({
+                ok: true,
+                json: async () => mockManifest,
             } as Response)
             .mockResolvedValueOnce({
                 ok: true,
@@ -50,7 +93,7 @@ describe('fetchData', () => {
             } as Response)
             .mockResolvedValueOnce({
                 ok: true,
-                json: async () => mockManifest,
+                json: async () => mockWomensOverride,
             } as Response);
 
         const result = await fetchData(mockYear);
@@ -75,8 +118,8 @@ describe('fetchData', () => {
                             rounds: [
                                 {
                                     round: '1',
-                                    score: 1,
-                                    possiblePointsMax: 2,
+                                    score: 10,
+                                    possiblePointsMax: 20,
                                 },
                             ],
                         },
@@ -86,6 +129,6 @@ describe('fetchData', () => {
         };
 
         expect(result).toEqual(expectedFetchedData);
-        expect(fetch).toHaveBeenCalledTimes(4);
+        expect(fetch).toHaveBeenCalledTimes(5);
     });
 });
