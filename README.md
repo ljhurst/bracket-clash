@@ -50,7 +50,7 @@ npm run test
 
 Code coverage can be viewed by opening `coverage/lcov-report/index.html` in the browser
 
-## Formating
+## Formatting
 
 We use [Prettier](https://prettier.io/) for formatting
 
@@ -64,6 +64,14 @@ We use [ESLint](https://eslint.org/) for linting
 
 ```bash
 npm run lint:fix
+```
+
+## Bundling
+
+We use [Webpack](https://webpack.js.org/) for bundling
+
+```bash
+npm run build
 ```
 
 ## Release
@@ -81,4 +89,5 @@ npm run release
 - HTML
 - Styling via [Bulma](https://bulma.io/)
 - Charts by [Chart.js](https://www.chartjs.org/)
+- Tables by [DataTables](https://datatables.net/)
 - Hosted on [AWS S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/HostingWebsiteOnS3Setup.html)
