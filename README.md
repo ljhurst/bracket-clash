@@ -109,9 +109,9 @@ From the `frontend/` directory
 
 1. Upload files
 
-- `assets/`
-- `index.html`
-- `dist/`
+ - `assets/`
+ - `index.html`
+ - `dist/`
 
 ## Local Development
 
