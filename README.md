@@ -89,29 +89,29 @@ From the `frontend/` directory
 
 1. Install dependencies
 
-   ```bash
-   npm install
-   ```
+    ```bash
+    npm install
+    ```
 
 1. Build
 
-   ```bash
-   npm run build
-   ```
+    ```bash
+    npm run build
+    ```
 
 1. Log in to AWS
 
-   Go to [AWS](https://aws.com) and log in with root user email
+    Go to [AWS](https://aws.com) and log in with root user email
 
 1. Go to S3
 
-   Find the `lj-bracket-clash` bucket
+    Find the `lj-bracket-clash` bucket
 
 1. Upload files
 
-   - `assets/`
-   - `index.html`
-   - `dist/`
+    - `assets/`
+    - `index.html`
+    - `dist/`
 
 ## Local Development
 
