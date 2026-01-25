@@ -1,16 +1,42 @@
 # Bracket Clash 🏀
 
+[![Frontend](https://github.com/ljhurst/bracket-clash/actions/workflows/frontend.yaml/badge.svg)](https://github.com/ljhurst/bracket-clash/actions/workflows/frontend.yaml)
+
 Combine men's and women's bracket scores
 
 ## Website
 
-http://lj-bracket-clash.s3-website-us-east-1.amazonaws.com
+<http://lj-bracket-clash.s3-website-us-east-1.amazonaws.com>
 
-## Deploy Instructions
+## Tour
+
+```tree
+.
+├── frontend/  # <-- Static website code
+├── infra/     # <-- Infrastructure as Code
+├── LICENSE
+└── README.md
+```
+
+## Prerequisites
+
+- Node.js (LTS version)
+- Python 3 (for local development server)
+- AWS CLI (for manual deployments)
+- Terraform (for infrastructure management)
+- pre-commit (optional, for git hooks)
+
+## Deployment
+
+Deployments are automated via GitHub Actions:
+
+- **Push to main**: Automatically build and deploy frontend to S3
+
+For manual deployments (useful for local testing), see the sections below.
 
 ### Authentication
 
-A `bracket-class-deploy-user` is available to manage the infrastructure and deploy
+A `bracket-clash-deploy-user` is available to manage the infrastructure and deploy
 the code. If you don't have credentials you'll have to go to the console to create
 new ones
 
@@ -28,25 +54,64 @@ And then export the profile for use with Terraform and AWS CLI
 export AWS_PROFILE=bracket-clash
 ```
 
+### Infrastructure
+
+Infrastructure is managed by [Terraform](https://www.terraform.io/).
+
+Go to `infra/` and initialize Terraform
+
+```bash
+terraform init
+```
+
+Review the planned changes
+
+```bash
+terraform plan
+```
+
+Apply the changes
+
+```bash
+terraform apply
+```
+
+When making changes to the infrastructure be sure to format and validate
+
+```bash
+terraform fmt
+terraform validate
+```
+
+### Frontend
+
+From the `frontend/` directory
+
+1. Install dependencies
+
+    ```bash
+    npm install
+    ```
+
 1. Build
 
-	```bash
-	npm run build
-	```
+    ```bash
+    npm run build
+    ```
 
 1. Log in to AWS
 
-	Go to [AWS](https://aws.com) and log in with root user email
+    Go to [AWS](https://aws.com) and log in with root user email
 
 1. Go to S3
 
-	Find the `lj-bracket-clash` bucket
+    Find the `lj-bracket-clash` bucket
 
 1. Upload files
 
-	- `assets/`
-	- `index.html`
-	- `dist/`
+    - `assets/`
+    - `index.html`
+    - `dist/`
 
 ## Local Development
 
@@ -69,6 +134,12 @@ Install pre-commit and run
 
 ```bash
 pre-commit install
+```
+
+To make sure things are working run
+
+```bash
+pre-commit run --all-files
 ```
 
 ### Formatting
@@ -121,3 +192,5 @@ npm run release
 - Charts by [Chart.js](https://www.chartjs.org/)
 - Tables by [DataTables](https://datatables.net/)
 - Hosted on [AWS S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/HostingWebsiteOnS3Setup.html)
+- Infrastructure managed by [Terraform](https://www.terraform.io/)
+- CI/CD via [GitHub Actions](https://github.com/features/actions)
