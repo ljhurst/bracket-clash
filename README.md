@@ -32,26 +32,31 @@ Deployments are automated via GitHub Actions:
 
 - **Push to main**: Automatically build and deploy frontend to S3
 
+GitHub Actions authenticates to AWS via OIDC (no stored AWS secrets). Workflows
+can also be triggered manually from the Actions tab (`workflow_dispatch`) for
+testing changes that don't touch `frontend/`.
+
 For manual deployments (useful for local testing), see the sections below.
 
 ### Authentication
 
-A `bracket-clash-deploy-user` is available to manage the infrastructure and deploy
-the code. If you don't have credentials you'll have to go to the console to create
-new ones
+Local access to manage infrastructure and deploy the code is via AWS IAM
+Identity Center (SSO), using the `bracket-clash-deploy` permission set.
 
-Save the credentials in ~/.aws/credentials under a `[bracket-clash]` profile
-
-```ini
-[bracket-clash]
-aws_access_key_id = <access-key-id>
-aws_secret_access_key = <secret-access-key>
-```
-
-And then export the profile for use with Terraform and AWS CLI
+One-time setup:
 
 ```bash
-export AWS_PROFILE=bracket-clash
+aws configure sso
+```
+
+When prompted, use the SSO start URL for this account and select the
+`bracket-clash-deploy` permission set. Name the profile `bracket-clash-deploy`.
+
+Then, before each session:
+
+```bash
+aws sso login --profile bracket-clash-deploy
+export AWS_PROFILE=bracket-clash-deploy
 ```
 
 ### Infrastructure
