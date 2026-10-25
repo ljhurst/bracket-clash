@@ -3,9 +3,12 @@
 coverage/
 dist/
 node_modules/
+site/
 
 # Terraform
 *.tfstate
 *.tfstate.backup
 *.tfvars
+!infra/terraform.tfvars
+*.tfplan
 .terraform/

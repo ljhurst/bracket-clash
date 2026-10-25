@@ -1,6 +1,6 @@
 # Bracket Clash 🏀
 
-[![Frontend](https://github.com/ljhurst/bracket-clash/actions/workflows/frontend.yaml/badge.svg)](https://github.com/ljhurst/bracket-clash/actions/workflows/frontend.yaml)
+[![Deploy](https://github.com/ljhurst/bracket-clash/actions/workflows/deploy.yml/badge.svg)](https://github.com/ljhurst/bracket-clash/actions/workflows/deploy.yml)
 
 Combine men's and women's bracket scores
 
@@ -28,19 +28,20 @@ Combine men's and women's bracket scores
 
 ## Deployment
 
-Deployments are automated via GitHub Actions:
+Merging to `main` deploys both the infrastructure and the site, through
+[stych](https://github.com/ljhurst/stych)'s shared workflows:
 
-- **Push to main**: Automatically build and deploy frontend to S3
+- **Pull request**: comments the Terraform plan and a preview of the site
+  sync (files to upload and delete).
+- **Merge to `main`**: applies the Terraform plan, then builds `frontend/` and
+  syncs `index.html`, `assets/` and `dist/` to the `lj-bracket-clash` bucket.
 
-GitHub Actions authenticates to AWS via OIDC (no stored AWS secrets). Workflows
-can also be triggered manually from the Actions tab (`workflow_dispatch`) for
-testing changes that don't touch `frontend/`.
+GitHub Actions authenticates to AWS via OIDC (no stored AWS secrets), and
+applies only from the `prod` environment, which is limited to `main`.
 
-For manual deployments (useful for local testing), see the sections below.
+### Break-glass local deploys
 
-### Authentication
-
-Local access to manage infrastructure and deploy the code is via AWS IAM
+Deploying from a laptop is for emergencies only. Access is via AWS IAM
 Identity Center (SSO), using the `bracket-clash-deploy` permission set.
 
 One-time setup:
@@ -59,64 +60,24 @@ aws sso login --profile bracket-clash-deploy
 export AWS_PROFILE=bracket-clash-deploy
 ```
 
-### Infrastructure
-
-Infrastructure is managed by [Terraform](https://www.terraform.io/).
-
-Go to `infra/` and initialize Terraform
+Infrastructure:
 
 ```bash
-terraform init
+terraform -chdir=infra init
+terraform -chdir=infra plan -out=bracket-clash.tfplan
+terraform -chdir=infra apply bracket-clash.tfplan
 ```
 
-Review the planned changes
+Site:
 
 ```bash
-terraform plan
+cd frontend
+npm ci
+npm run build
+aws s3 cp index.html s3://lj-bracket-clash/index.html
+aws s3 sync assets/ s3://lj-bracket-clash/assets/ --delete
+aws s3 sync dist/ s3://lj-bracket-clash/dist/ --delete
 ```
-
-Apply the changes
-
-```bash
-terraform apply
-```
-
-When making changes to the infrastructure be sure to format and validate
-
-```bash
-terraform fmt
-terraform validate
-```
-
-### Frontend
-
-From the `frontend/` directory
-
-1. Install dependencies
-
-    ```bash
-    npm install
-    ```
-
-1. Build
-
-    ```bash
-    npm run build
-    ```
-
-1. Log in to AWS
-
-    Go to [AWS](https://aws.com) and log in with root user email
-
-1. Go to S3
-
-    Find the `lj-bracket-clash` bucket
-
-1. Upload files
-
-    - `assets/`
-    - `index.html`
-    - `dist/`
 
 ## Local Development
 
