@@ -6,7 +6,7 @@ type MockFetch = jest.MockedFunction<typeof fetch>;
 
 describe('fetchData', () => {
     beforeEach(() => {
-        global.fetch = jest.fn() as MockFetch;
+        global.fetch = jest.fn<typeof fetch>();
     });
 
     afterEach(() => {
