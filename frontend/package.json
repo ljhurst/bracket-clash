@@ -21,7 +21,6 @@
   "author": "Luke Hurst <hurstlj@umich.edu>",
   "license": "MIT",
   "devDependencies": {
-    "@types/chart.js": "^2.9.41",
     "@types/jest": "^29.5.14",
     "@typescript-eslint/eslint-plugin": "^8.26.0",
     "@typescript-eslint/parser": "^8.26.0",
