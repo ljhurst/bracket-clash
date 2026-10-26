@@ -6,7 +6,9 @@ Combine men's and women's bracket scores
 
 ## Website
 
-<http://lj-bracket-clash.s3-website-us-east-1.amazonaws.com>
+<https://bracket-clash.bylukehurst.com>
+
+Served over HTTPS through CloudFront from a private S3 bucket.
 
 ## Tour
 
