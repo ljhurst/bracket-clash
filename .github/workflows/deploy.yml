@@ -33,6 +33,7 @@ jobs:
       plan-role-arn: arn:aws:iam::755958650241:role/stych/bracket-clash-ci-plan
       apply-role-arn: arn:aws:iam::755958650241:role/stych/bracket-clash-ci-apply
       bucket: lj-bracket-clash
+      distribution-id: EBB9LW6ZF9R1A
       node-version-file: frontend/.nvmrc
       site-dir: site
       build-command: >-
