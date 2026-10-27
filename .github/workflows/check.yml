@@ -17,3 +17,14 @@ jobs:
       terraform-version: "1.17.0"
       node-version-file: frontend/.nvmrc
       setup-command: npm ci --prefix frontend
+
+  test:
+    uses: ljhurst/stych/.github/workflows/test.yml@v1
+    with:
+      command: npm test
+      setup-command: npm ci
+      working-directory: frontend
+      node-version-file: frontend/.nvmrc
+      paths: |
+        frontend/**
+        .github/workflows/check.yml
