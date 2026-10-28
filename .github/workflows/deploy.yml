@@ -28,7 +28,8 @@ jobs:
       id-token: write
       contents: read
       pull-requests: write
-    uses: ljhurst/stych/.github/workflows/static-site.yml@v1
+      deployments: write
+    uses: ljhurst/stych/.github/workflows/static-site.yml@feat/site-preview-workflow
     with:
       plan-role-arn: arn:aws:iam::755958650241:role/stych/bracket-clash-ci-plan
       apply-role-arn: arn:aws:iam::755958650241:role/stych/bracket-clash-ci-apply
