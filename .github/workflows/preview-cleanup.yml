@@ -15,6 +15,6 @@ jobs:
       id-token: write
       contents: read
       deployments: write
-    uses: ljhurst/stych/.github/workflows/preview-cleanup.yml@feat/site-preview-workflow
+    uses: ljhurst/stych/.github/workflows/preview-cleanup.yml@v1
     with:
       plan-role-arn: arn:aws:iam::755958650241:role/stych/bracket-clash-ci-plan
