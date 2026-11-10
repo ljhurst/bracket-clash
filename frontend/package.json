@@ -22,8 +22,8 @@
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^29.5.14",
-    "@typescript-eslint/eslint-plugin": "^8.71.2",
-    "@typescript-eslint/parser": "^8.71.2",
+    "@typescript-eslint/eslint-plugin": "^8.72.0",
+    "@typescript-eslint/parser": "^8.72.0",
     "eslint": "^9.21.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
@@ -36,14 +36,14 @@
     "ts-jest": "^29.4.15",
     "ts-loader": "^9.6.2",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.71.2",
+    "typescript-eslint": "^8.72.0",
     "webpack": "^5.98.0",
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
     "@types/datatables.net": "^1.10.28",
     "@types/datatables.net-fixedcolumns": "^3.3.4",
-    "chart.js": "^4.5.1",
+    "chart.js": "^4.6.1",
     "datatables.net": "^2.3.8",
     "datatables.net-dt": "^2.3.8",
     "datatables.net-fixedcolumns": "^5.0.5"
